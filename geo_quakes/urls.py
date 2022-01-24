@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include, re_path
+import django.contrib.auth.views
+import geoQuakesApp.views
+from geoQuakesApp.views import home_view, quake_dataset
 
 urlpatterns = [
+    re_path(r'^$', geoQuakesApp.views.home_view, name='home'),
+    re_path(r'^quake_dataset/', quake_dataset, name='quakedataset'),
     path('admin/', admin.site.urls),
 ]
