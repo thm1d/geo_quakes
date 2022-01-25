@@ -9,7 +9,7 @@ import pandas as pd
 
 # Create your views here.
 def quake_dataset(request):
-    quakes = serialize('json', Quake.objects.order_by("ID")[:1000])
+    quakes = serialize('json', Quake.objects.order_by("ID")[:500])
     return HttpResponse(quakes, content_type='json')
 
 def home_view(request):

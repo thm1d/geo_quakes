@@ -21,6 +21,10 @@
 <script src="{% static 'app/leaflet/leaflet.js' %}"></script>
 
 <script type="text/javascript">
+
+    //Url Endpoint
+    var dataUrl = '{% url "quakedataset" %}';
+
     // Basemap URL 
     var osm_map = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' 
@@ -30,6 +34,13 @@
     var map = L.map('map', {
         layers: [osm_map]
     }).setView([23.6850, 90.3563], 3)
+
+    $.getJSON(dataUrl, function(data) {
+        $.each(data, function(i, item) {
+            //console.log(item);
+            L.marker(L.latLng(item.fields.Latitude, item.fields.Longitude)).bindPopup(item.fields.Magnitude.toString()).addTo(map);
+        });
+    });
     
 </script>
 
